@@ -27,7 +27,6 @@ import Foundation
 @testable import SwiftyJSON
 
 class SequenceTypeTests: XCTestCase {
-
     func testJSONFile() {
         if let file = NSBundle.pathForResource("Tests", ofType: "json", inDirectory: "Tests/SwiftyJSON") {
             let testData = NSData(contentsOfFile: file)
@@ -112,7 +111,9 @@ class SequenceTypeTests: XCTestCase {
         XCTAssertEqual(json.count, 4)
         
         var index = 0
-        var array = [AnyObject]()
+
+        typealias AnyType = JSON.AnyType //swift compiler does not like [JSON.AnyType]() expression
+        var array = [AnyType]()
         for (i, sub) in json {
             XCTAssertEqual(sub, json[index])
             let ind: Int? = index
@@ -130,7 +131,9 @@ class SequenceTypeTests: XCTestCase {
         XCTAssertEqual(json.count, 3)
         
         var index = 0
-        var array = [AnyObject]()
+
+        typealias AnyType = JSON.AnyType //swift compiler does not like [JSON.AnyType]() expression
+        var array = [AnyType]()
         for (i, sub) in json {
             XCTAssertEqual(sub, json[index])
             let ind: Int? = index
@@ -202,7 +205,9 @@ class SequenceTypeTests: XCTestCase {
         XCTAssertEqual(json.count, 4)
         
         var index = 0
-        var dictionary = [String:AnyObject]()
+
+        typealias AnyType = JSON.AnyType //swift compiler does not like [JSON.AnyType]() expression
+        var dictionary = [String: AnyType]()
         for (key, sub) in json {
             XCTAssertEqual(sub, json[key])
             dictionary[key] = sub.object
@@ -221,7 +226,9 @@ class SequenceTypeTests: XCTestCase {
         XCTAssertEqual(json.count, 3)
         
         var index = 0
-        var dictionary = [String:AnyObject]()
+
+        typealias AnyType = JSON.AnyType //swift compiler does not like [JSON.AnyType]() expression
+        var dictionary = [String: AnyType]()
         for (key, sub) in json {
             XCTAssertEqual(sub, json[key])
             dictionary[key] = sub.object
