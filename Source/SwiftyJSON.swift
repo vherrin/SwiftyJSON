@@ -772,11 +772,11 @@ extension JSON: Swift.FloatLiteralConvertible {
 extension JSON: Swift.DictionaryLiteralConvertible {
 
     public init(dictionaryLiteral elements: (String, AnyType)...) {
-        self.init(elements.reduce([String : AnyObject](minimumCapacity: elements.count)){(dictionary: [String : AnyType], element:(String, AnyObject)) -> [String : AnyType] in
+        self.init(elements.reduce([String : AnyType](minimumCapacity: elements.count)){(dictionary: [String : AnyType], element:(String, AnyType)) -> [String : AnyType] in
             var d = dictionary
             d[element.0] = element.1
             return d
-            } as AnyObject)
+            } as AnyType)
     }
 }
 
