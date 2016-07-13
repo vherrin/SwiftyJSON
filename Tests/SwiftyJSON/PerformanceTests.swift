@@ -25,6 +25,14 @@ import Foundation
 
 @testable import SwiftyJSON
 
+#if os(Linux)
+// autoreleasepool is Objective-C feature
+//TODO check what is its equivalent in Swift on Linux
+func autoreleasepool(callback:() -> ()) {
+     callback()
+}
+#endif
+
 class PerformanceTests: XCTestCase {
 
     var testData: NSData!
