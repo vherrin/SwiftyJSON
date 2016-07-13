@@ -28,9 +28,9 @@ import Foundation
 class BaseTests: XCTestCase {
 
     var testData: NSData!
-    
+
     override func setUp() {
-        
+
         super.setUp()
         if let file = NSBundle.pathForResource("Tests", ofType: "json", inDirectory: "Tests/SwiftyJSON") {
             self.testData = NSData(contentsOfFile: file)
@@ -38,11 +38,11 @@ class BaseTests: XCTestCase {
             XCTFail("Can't find the test JSON file")
         }
     }
-    
+
     override func tearDown() {
         super.tearDown()
     }
-    
+
     func testInit() {
         let json0 = JSON(data:self.testData)
         XCTAssertEqual(json0.array!.count, 3)
@@ -53,17 +53,13 @@ class BaseTests: XCTestCase {
         dictionary.setObject(NSNull(), forKey: "null" as NSString)
         _ = JSON(dictionary)
         do {
-            #if os(Linux)
-                let object: Any = try NSJSONSerialization.jsonObject(with: self.testData, options: [])
-            #else
-                let object: AnyObject = try NSJSONSerialization.jsonObject(with: self.testData, options: [])
-            #endif
+            let object: JSON.AnyType = try NSJSONSerialization.jsonObject(with: self.testData, options: [])
             let json2 = JSON(object)
             XCTAssertEqual(json0, json2)
         } catch _ {
         }
     }
-    
+
     func testCompare() {
         XCTAssertNotEqual(JSON("32.1234567890"), JSON(32.1234567890))
         XCTAssertNotEqual(JSON("9876543210987654321"),JSON(NSNumber(value:9876543210987654321 as UInt64)))
@@ -78,10 +74,10 @@ class BaseTests: XCTestCase {
         XCTAssertEqual(JSON(NSNull()),JSON(NSNull()))
         XCTAssertNotEqual(JSON(NSNull()), JSON(123))
     }
-    
+
     func testJSONDoesProduceValidWithCorrectKeyPath() {
         let json = JSON(data:self.testData)
-        
+
         let tweets = json
         let tweets_array = json.array
         let tweets_1 = json[1]
@@ -93,7 +89,7 @@ class BaseTests: XCTestCase {
         XCTAssertNotEqual(tweets_1.type, Type.Null)
         XCTAssertEqual(tweets_1_user_name, JSON("Raffi Krikorian"))
         XCTAssertEqual(tweets_1_user_name_string!, "Raffi Krikorian")
-        
+
         let tweets_1_coordinates = tweets_1["coordinates"]
         let tweets_1_coordinates_coordinates = tweets_1_coordinates["coordinates"]
         let tweets_1_coordinates_coordinates_point_0_double = tweets_1_coordinates_coordinates[0].double
@@ -110,7 +106,7 @@ class BaseTests: XCTestCase {
         let tweets_1_coordinates_coordinates_point_1 = tweets_1_coordinates_coordinates[1]
         XCTAssertEqual(tweets_1_coordinates_coordinates_point_0, JSON(-122.25831))
         XCTAssertEqual(tweets_1_coordinates_coordinates_point_1, JSON(37.871609))
-        
+
         let created_at = json[0]["created_at"].string
         let id_str = json[0]["id_str"].string
         let favorited = json[0]["favorited"].bool
@@ -134,7 +130,7 @@ class BaseTests: XCTestCase {
         XCTAssert(user_dictionary_name == "OAuth Dancer")
         XCTAssert(user_dictionary_name_profile_image_url == NSURL(string: "http://a0.twimg.com/profile_images/730275945/oauth-dancer_normal.jpg"))
     }
-    
+
     func testSequenceType() {
         let json = JSON(data:self.testData)
         XCTAssertEqual(json.count, 3)
@@ -142,7 +138,7 @@ class BaseTests: XCTestCase {
             XCTAssertEqual(aJson, json[0])
             break
         }
-        
+
         let index = 0
         let keys = (json[1].dictionaryObject! as NSDictionary).allKeys as! [String]
         for (aKey, aJson) in json[1] {
@@ -151,7 +147,7 @@ class BaseTests: XCTestCase {
             break
         }
     }
-    
+
     func testJSONNumberCompare() {
         XCTAssertEqual(JSON(12376352.123321), JSON(12376352.123321))
         XCTAssertGreaterThan(JSON(20.211), JSON(20.112))
@@ -160,7 +156,7 @@ class BaseTests: XCTestCase {
         XCTAssertLessThan(JSON(-82320.211), JSON(20.112))
         XCTAssertLessThanOrEqual(JSON(-320.211), JSON(123.1))
         XCTAssertLessThanOrEqual(JSON(-8763), JSON(-8763))
-        
+
         XCTAssertEqual(JSON(12376352.123321), JSON(12376352.123321))
         XCTAssertGreaterThan(JSON(20.211), JSON(20.112))
         XCTAssertGreaterThanOrEqual(JSON(30.211), JSON(20.112))
@@ -180,7 +176,7 @@ class BaseTests: XCTestCase {
         XCTAssertEqual(JSON(["a","b","c","d"]).numberValue.stringValue, "0")
         XCTAssertEqual(JSON(["a":"b","c":"d"]).numberValue.stringValue, "0")
     }
-    
+
     func testNumberPrint(){
 
         XCTAssertEqual(JSON(false).description,"false")
@@ -210,28 +206,19 @@ class BaseTests: XCTestCase {
         XCTAssertEqual(JSON(NSNumber(value: Int64.max)).description,"\(Int64.max)")
         XCTAssertEqual(JSON(NSNumber(value: UInt64.max)).description,"\(UInt64.max)")
 
-        #if os(Linux)
-            XCTAssertEqual(JSON(Double.infinity as Any).description,"inf")
-            XCTAssertEqual(JSON(-Double.infinity as Any).description,"-inf")
-            XCTAssertEqual(JSON(Double.nan as Any).description,"nan")
-            
-            XCTAssertEqual(JSON(1.0/0.0 as Any).description,"inf")
-            XCTAssertEqual(JSON(-1.0/0.0 as Any).description,"-inf")
-            XCTAssertEqual(JSON(0.0/0.0 as Any).description,"nan")
-        #else
-            XCTAssertEqual(JSON(Double.infinity as AnyObject).description,"inf")
-            XCTAssertEqual(JSON(-Double.infinity as AnyObject).description,"-inf")
-            XCTAssertEqual(JSON(Double.nan as AnyObject).description,"nan")
-            
-            XCTAssertEqual(JSON(1.0/0.0 as AnyObject).description,"inf")
-            XCTAssertEqual(JSON(-1.0/0.0 as AnyObject).description,"-inf")
-            XCTAssertEqual(JSON(0.0/0.0 as AnyObject).description,"nan")
-        #endif
+
+        XCTAssertEqual(JSON(Double.infinity as JSON.AnyType).description,"inf")
+        XCTAssertEqual(JSON(-Double.infinity as JSON.AnyType).description,"-inf")
+        XCTAssertEqual(JSON(Double.nan as JSON.AnyType).description,"nan")
+
+        XCTAssertEqual(JSON(1.0/0.0 as JSON.AnyType).description,"inf")
+        XCTAssertEqual(JSON(-1.0/0.0 as JSON.AnyType).description,"-inf")
+        XCTAssertEqual(JSON(0.0/0.0 as JSON.AnyType).description,"nan")
     }
-    
+
     func testNullJSON() {
         XCTAssertEqual(JSON(NSNull()).debugDescription,"null")
-        
+
         let json:JSON = nil
         XCTAssertEqual(json.debugDescription,"null")
         XCTAssertNil(json.error)
@@ -240,18 +227,15 @@ class BaseTests: XCTestCase {
             XCTFail("json1 should be nil")
         }
     }
-    
+
     func testExistance() {
         let dictionary = ["number":1111]
-        #if os(Linux)
-            let json = JSON(dictionary as Any)
-        #else
-            let json = JSON(dictionary as AnyObject)
-        #endif
+        let json = JSON(dictionary as JSON.AnyType)
+
         XCTAssertFalse(json["unspecifiedValue"].exists())
         XCTAssertTrue(json["number"].exists())
     }
-    
+
     func testErrorHandle() {
         let json = JSON(data:self.testData)
         if let _ = json["wrong-type"].string {
@@ -265,18 +249,18 @@ class BaseTests: XCTestCase {
         } else {
             XCTAssertEqual(json[0]["not-exist"].error!.code, SwiftyJSON.ErrorNotExist)
         }
-        
+
         let wrongJSON = JSON(NSObject())
         if let error = wrongJSON.error {
             XCTAssertEqual(error.code, SwiftyJSON.ErrorUnsupportedType)
         }
     }
-    
+
     func testReturnObject() {
         let json = JSON(data:self.testData)
         XCTAssertNotNil(json.object)
     }
-        
+
     func testNumberCompare(){
         XCTAssertEqual(NSNumber(value: 888332), NSNumber(value:888332))
         XCTAssertNotEqual(NSNumber(value: 888332.1), NSNumber(value:888332))
@@ -287,6 +271,6 @@ class BaseTests: XCTestCase {
         XCTAssertEqual(NSNumber(value: false), NSNumber(value:false))
         XCTAssertEqual(NSNumber(value: true), NSNumber(value:true))
     }
-    
+
 
 }

@@ -28,22 +28,22 @@ import Foundation
 class PerformanceTests: XCTestCase {
 
     var testData: NSData!
-    
+
     override func setUp() {
         super.setUp()
-        
+
         if let file = NSBundle.pathForResource("Tests", ofType: "json", inDirectory: "Tests/SwiftyJSON") {
             self.testData = NSData(contentsOfFile: file)
         } else {
             XCTFail("Can't find the test JSON file")
         }
     }
-    
+
     override func tearDown() {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-    
+
     func testInitPerformance() {
         self.measure() {
             for _ in 1...100 {
@@ -52,16 +52,12 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
+
     func testObjectMethodPerformance() {
         let json = JSON(data:self.testData)
         self.measure() {
             for _ in 1...100 {
-                #if os(Linux)
-                    let object:Any? = json.object
-                #else
-                    let object:AnyObject? = json.object
-                #endif
+                let object: JSON.AnyType? = json.object
                 XCTAssertTrue(object != nil)
             }
         }
@@ -78,7 +74,7 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
+
     func testDictionaryMethodPerformance() {
         let json = JSON(data:testData)[0]
         self.measure() {
@@ -90,7 +86,7 @@ class PerformanceTests: XCTestCase {
             }
         }
     }
-    
+
     func testRawStringMethodPerformance() {
         let json = JSON(data:testData)
         self.measure() {
