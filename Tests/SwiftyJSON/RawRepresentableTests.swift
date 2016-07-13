@@ -21,7 +21,9 @@
 //  THE SOFTWARE.
 
 import XCTest
-import SwiftyJSON
+import Foundation
+
+@testable import SwiftyJSON
 
 class RawRepresentableTests: XCTestCase {
 
@@ -34,7 +36,11 @@ class RawRepresentableTests: XCTestCase {
         XCTAssertTrue(json.float! == 948394394.347384)
         XCTAssertTrue(json.floatValue == 948394394.347384)
         
-        let object: AnyObject = json.rawValue
+        #if os(Linux)
+            let object: Any = json.rawValue
+        #else
+            let object: AnyObject = json.rawValue
+        #endif
         XCTAssertEqual(object as? Int, 948394394)
         XCTAssertEqual(object as? Double, 948394394.347384)
         XCTAssertTrue(object as! Float == 948394394.347384)
@@ -50,22 +56,36 @@ class RawRepresentableTests: XCTestCase {
         XCTAssertEqual(jsonFalse.bool!, false)
         XCTAssertEqual(jsonFalse.boolValue, false)
         
-        let objectTrue: AnyObject = jsonTrue.rawValue
+        #if os(Linux)
+            let objectTrue: Any = jsonTrue.rawValue
+        #else
+            let objectTrue: AnyObject = jsonTrue.rawValue
+        #endif
         XCTAssertEqual(objectTrue as? Int, 1)
         XCTAssertEqual(objectTrue as? Double, 1.0)
         XCTAssertEqual(objectTrue as? Bool, true)
         XCTAssertEqual(objectTrue as? NSNumber, NSNumber(value: true))
         
-        let objectFalse: AnyObject = jsonFalse.rawValue
+        #if os(Linux)
+            let objectFalse: Any = jsonFalse.rawValue
+        #else
+            let objectFalse: AnyObject = jsonFalse.rawValue
+        #endif
         XCTAssertEqual(objectFalse as? Int, 0)
         XCTAssertEqual(objectFalse as? Double, 0.0)
         XCTAssertEqual(objectFalse as? Bool, false)
         XCTAssertEqual(objectFalse as? NSNumber, NSNumber(value: false))
     }
     
+    #if os(Linux)
+    typealias AnyType = Any
+    #else
+    typealias AnyType = AnyObject
+    #endif
+
     func testString() {
         let string = "The better way to deal with JSON data in Swift."
-        if let json:JSON = JSON(rawValue: string as AnyObject) {
+        if let json = JSON(rawValue: string as AnyType) {
             XCTAssertEqual(json.string!, string)
             XCTAssertEqual(json.stringValue, string)
             XCTAssertTrue(json.array == nil)
@@ -78,7 +98,7 @@ class RawRepresentableTests: XCTestCase {
             XCTFail("Should not run into here")
         }
         
-        let object: AnyObject = JSON(rawValue: string as AnyObject)!.rawValue
+        let object: AnyType = JSON(rawValue: string as AnyType)!.rawValue
         XCTAssertEqual(object as? String, string)
     }
     

@@ -21,7 +21,9 @@
 //  THE SOFTWARE.
 
 import XCTest
-import SwiftyJSON
+import Foundation
+
+@testable import SwiftyJSON
 
 class ComparableTests: XCTestCase {
 

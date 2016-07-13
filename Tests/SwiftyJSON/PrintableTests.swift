@@ -21,7 +21,9 @@
 //  THE SOFTWARE.
 
 import XCTest
-import SwiftyJSON
+import Foundation
+
+@testable import SwiftyJSON
 
 class PrintableTests: XCTestCase {
     func testNumber() {
@@ -55,7 +57,7 @@ class PrintableTests: XCTestCase {
     }
     
     func testArray() {
-        let json:JSON = [1,2,"4",5,"6"]
+        let json = JSON([1,2,"4",5,"6"])
         var description = json.description.replacingOccurrences(of: "\n", with: "")
         description = description.replacingOccurrences(of: " ", with: "")
         XCTAssertEqual(description, "[1,2,\"4\",5,\"6\"]")
@@ -64,7 +66,7 @@ class PrintableTests: XCTestCase {
     }
     
     func testDictionary() {
-        let json:JSON = ["1":2,"2":"two", "3":3]
+        let json = JSON(["1":2,"2":"two", "3":3])
         var debugDescription = json.debugDescription.replacingOccurrences(of: "\n", with: "")
         debugDescription = debugDescription.replacingOccurrences(of: " ", with: "")
         XCTAssertTrue(json.description.lengthOfBytes(using: NSUTF8StringEncoding) > 0)

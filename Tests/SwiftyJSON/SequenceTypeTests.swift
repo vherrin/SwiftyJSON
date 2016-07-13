@@ -22,7 +22,9 @@
 //  THE SOFTWARE.
 
 import XCTest
-import SwiftyJSON
+import Foundation
+
+@testable import SwiftyJSON
 
 class SequenceTypeTests: XCTestCase {
 
@@ -31,11 +33,10 @@ class SequenceTypeTests: XCTestCase {
             let testData = NSData(contentsOfFile: file)
             let json = JSON(data:testData!)
             var ind = 0
-            for (index, sub) in json {
+            for (_, sub) in json {
                 switch (ind)  {
                 case 0:
                     let case0 = sub["id_str"].rawString()!
-                    print("Case 0 \(case0)")
                     XCTAssertEqual(case0, "240558470661799936")
                     ind += 1
                 case 1:
@@ -63,7 +64,7 @@ class SequenceTypeTests: XCTestCase {
         var array = [NSNumber]()
         for (i, sub) in json {
             XCTAssertEqual(sub, json[index])
-            var ind: Int? = index
+            let ind: Int? = index
             XCTAssertEqual(i, "\(ind)")
             array.append(sub.number!)
             index += 1
@@ -80,7 +81,7 @@ class SequenceTypeTests: XCTestCase {
         var array = [Bool]()
         for (i, sub) in json {
             XCTAssertEqual(sub, json[index])
-            var ind: Int? = index
+            let ind: Int? = index
             XCTAssertEqual(i, "\(ind)")
             array.append(sub.bool!)
             index += 1
@@ -97,7 +98,7 @@ class SequenceTypeTests: XCTestCase {
         var array = [String]()
         for (i, sub) in json {
             XCTAssertEqual(sub, json[index])
-            var ind: Int? = index
+            let ind: Int? = index
             XCTAssertEqual(i, "\(ind)")
             array.append(sub.string!)
             index += 1
@@ -114,7 +115,7 @@ class SequenceTypeTests: XCTestCase {
         var array = [AnyObject]()
         for (i, sub) in json {
             XCTAssertEqual(sub, json[index])
-            var ind: Int? = index
+            let ind: Int? = index
             XCTAssertEqual(i, "\(ind)")
             array.append(sub.object)
             index += 1
@@ -132,7 +133,7 @@ class SequenceTypeTests: XCTestCase {
         var array = [AnyObject]()
         for (i, sub) in json {
             XCTAssertEqual(sub, json[index])
-            var ind: Int? = index
+            let ind: Int? = index
             XCTAssertEqual(i, "\(ind)")
             array.append(sub.object)
             index += 1

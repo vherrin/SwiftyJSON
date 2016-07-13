@@ -21,7 +21,9 @@
 //  THE SOFTWARE.
 
 import XCTest
-import SwiftyJSON
+import Foundation
+
+@testable import SwiftyJSON
 
 class StringTests: XCTestCase {
 
@@ -44,7 +46,12 @@ class StringTests: XCTestCase {
     func testURLPercentEscapes() {
         let emDash = "\\u2014"
         let urlString = "http://examble.com/unencoded" + emDash + "string"
-        let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed())
+        
+        #if os(Linux)
+            let encodedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(CharacterSet.urlQueryAllowed)
+        #else
+            let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed())
+        #endif
         let json = JSON(urlString as AnyObject)
         XCTAssertEqual(json.URL!, NSURL(string: encodedURLString!)!, "Wrong unpacked ")
     }

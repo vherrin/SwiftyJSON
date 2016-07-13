@@ -21,7 +21,9 @@
 //  THE SOFTWARE.
 
 import XCTest
-import SwiftyJSON
+import Foundation
+
+@testable import SwiftyJSON
 
 class PerformanceTests: XCTestCase {
 
@@ -52,10 +54,14 @@ class PerformanceTests: XCTestCase {
     }
     
     func testObjectMethodPerformance() {
-        var json = JSON(data:self.testData)
+        let json = JSON(data:self.testData)
         self.measure() {
             for _ in 1...100 {
-                let object:AnyObject? = json.object
+                #if os(Linux)
+                    let object:Any? = json.object
+                #else
+                    let object:AnyObject? = json.object
+                #endif
                 XCTAssertTrue(object != nil)
             }
         }

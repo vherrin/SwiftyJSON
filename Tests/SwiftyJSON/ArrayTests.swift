@@ -21,13 +21,17 @@
 //  THE SOFTWARE.
 
 import XCTest
-import SwiftyJSON
+@testable import SwiftyJSON
 
 class ArrayTests: XCTestCase {
 
     func testSingleDimensionalArraysGetter() {
         let array = ["1","2", "a", "B", "D"]
-        let json = JSON(array as AnyObject)
+        #if os(Linux)
+            let json = JSON(array as Any)
+        #else
+            let json = JSON(array)
+        #endif
         XCTAssertEqual((json.array![0] as JSON).string!, "1")
         XCTAssertEqual((json.array![1] as JSON).string!, "2")
         XCTAssertEqual((json.array![2] as JSON).string!, "a")
@@ -37,7 +41,11 @@ class ArrayTests: XCTestCase {
     
     func testSingleDimensionalArraysSetter() {
         let array = ["1","2", "a", "B", "D"]
-        var json = JSON(array as AnyObject)
+        #if os(Linux)
+            var json = JSON(array as Any)
+        #else
+            var json = JSON(array)
+        #endif
         json.arrayObject = ["111", "222"]
         XCTAssertEqual((json.array![0] as JSON).string!, "111")
         XCTAssertEqual((json.array![1] as JSON).string!, "222")

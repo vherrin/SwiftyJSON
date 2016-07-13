@@ -21,6 +21,8 @@
 //  THE SOFTWARE.
 
 import XCTest
+import Foundation
+
 @testable import SwiftyJSON
 
 class BaseTests: XCTestCase {
@@ -51,7 +53,11 @@ class BaseTests: XCTestCase {
         dictionary.setObject(NSNull(), forKey: "null" as NSString)
         _ = JSON(dictionary)
         do {
-            let object: AnyObject = try NSJSONSerialization.jsonObject(with: self.testData, options: [])
+            #if os(Linux)
+                let object: Any = try NSJSONSerialization.jsonObject(with: self.testData, options: [])
+            #else
+                let object: AnyObject = try NSJSONSerialization.jsonObject(with: self.testData, options: [])
+            #endif
             let json2 = JSON(object)
             XCTAssertEqual(json0, json2)
         } catch _ {
@@ -204,13 +210,23 @@ class BaseTests: XCTestCase {
         XCTAssertEqual(JSON(NSNumber(value: Int64.max)).description,"\(Int64.max)")
         XCTAssertEqual(JSON(NSNumber(value: UInt64.max)).description,"\(UInt64.max)")
 
-        XCTAssertEqual(JSON(Double.infinity as AnyObject).description,"inf")
-        XCTAssertEqual(JSON(-Double.infinity as AnyObject).description,"-inf")
-        XCTAssertEqual(JSON(Double.nan as AnyObject).description,"nan")
-        
-        XCTAssertEqual(JSON(1.0/0.0 as AnyObject).description,"inf")
-        XCTAssertEqual(JSON(-1.0/0.0 as AnyObject).description,"-inf")
-        XCTAssertEqual(JSON(0.0/0.0 as AnyObject).description,"nan")
+        #if os(Linux)
+            XCTAssertEqual(JSON(Double.infinity as Any).description,"inf")
+            XCTAssertEqual(JSON(-Double.infinity as Any).description,"-inf")
+            XCTAssertEqual(JSON(Double.nan as Any).description,"nan")
+            
+            XCTAssertEqual(JSON(1.0/0.0 as Any).description,"inf")
+            XCTAssertEqual(JSON(-1.0/0.0 as Any).description,"-inf")
+            XCTAssertEqual(JSON(0.0/0.0 as Any).description,"nan")
+        #else
+            XCTAssertEqual(JSON(Double.infinity as AnyObject).description,"inf")
+            XCTAssertEqual(JSON(-Double.infinity as AnyObject).description,"-inf")
+            XCTAssertEqual(JSON(Double.nan as AnyObject).description,"nan")
+            
+            XCTAssertEqual(JSON(1.0/0.0 as AnyObject).description,"inf")
+            XCTAssertEqual(JSON(-1.0/0.0 as AnyObject).description,"-inf")
+            XCTAssertEqual(JSON(0.0/0.0 as AnyObject).description,"nan")
+        #endif
     }
     
     func testNullJSON() {
@@ -227,7 +243,11 @@ class BaseTests: XCTestCase {
     
     func testExistance() {
         let dictionary = ["number":1111]
-        let json = JSON(dictionary as AnyObject)
+        #if os(Linux)
+            let json = JSON(dictionary as Any)
+        #else
+            let json = JSON(dictionary as AnyObject)
+        #endif
         XCTAssertFalse(json["unspecifiedValue"].exists())
         XCTAssertTrue(json["number"].exists())
     }
