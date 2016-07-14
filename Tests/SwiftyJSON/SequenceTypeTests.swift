@@ -108,7 +108,7 @@ class SequenceTypeTests: XCTestCase {
     
     func testArrayWithNull() {
         #if os(Linux)
-        var json:JSON = JSON(rawValue: ["aoo","bpp", nil ,"zoo"])!
+        var json:JSON = JSON(rawValue: ["aoo","bpp", nil ,"zoo"] as [JSON.AnyType?])!
         #else
         var json:JSON = JSON(rawValue: ["aoo","bpp", NSNull() ,"zoo"])!
         #endif
@@ -206,9 +206,9 @@ class SequenceTypeTests: XCTestCase {
     
     func testDictionaryWithNull() {
         #if os(Linux)
-        var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","null":nil, "z":"zoo"])!
+            var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","null":nil, "z":"zoo"] as [String:JSON.AnyType?])!
         #else
-        var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","null":NSNull(), "z":"zoo"])!
+            var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","null":NSNull(), "z":"zoo"])!
         #endif
         XCTAssertEqual(json.count, 4)
         

@@ -105,7 +105,6 @@ class NumberTests: XCTestCase {
         var json = JSON(54321.12345)
         XCTAssertTrue(json.float! == 54321.12345)
         XCTAssertTrue(json.floatValue == 54321.12345)
-        print(json.numberValue.doubleValue)
         XCTAssertEqual(json.numberValue, 54321.12345)
         XCTAssertEqual(json.stringValue, "54321.12345")
         
@@ -191,7 +190,6 @@ class NumberTests: XCTestCase {
         json.int8Value = n0.int8Value
         XCTAssertTrue(json.int8! == n0.int8Value)
         XCTAssertTrue(json.int8Value == n0.int8Value)
-        print(json.number)
         XCTAssertTrue(json.number! == n0)
         XCTAssertEqual(json.numberValue, n0)
         #if (arch(x86_64) || arch(arm64))
@@ -270,7 +268,6 @@ class NumberTests: XCTestCase {
         json.int16Value = n0.int16Value
         XCTAssertTrue(json.int16! == n0.int16Value)
         XCTAssertTrue(json.int16Value == n0.int16Value)
-        print(json.number)
         XCTAssertTrue(json.number! == n0)
         XCTAssertEqual(json.numberValue, n0)
         XCTAssertEqual(json.stringValue, "0")

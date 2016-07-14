@@ -28,7 +28,7 @@ import Foundation
 class RawTests: XCTestCase {
 
     func testRawData() {
-        let json = JSON(["somekey" : "some string value"])
+        let json : JSON = ["somekey" : "some string value"]
         let expectedRawData = "{\"somekey\":\"some string value\"}".data(using: NSUTF8StringEncoding)
         do {
             let data: NSData = try json.rawData()
@@ -48,7 +48,8 @@ class RawTests: XCTestCase {
     }
     
     func testArray() {
-        let json = JSON([1, "2", 3.12, nil, true, JSON(["name": "Jack"])])
+        let json : JSON = [1, "2", 3.12, NSNull(), true, ["name": "Jack"]]
+        
         let data: NSData?
         do {
             data = try json.rawData()
@@ -61,7 +62,7 @@ class RawTests: XCTestCase {
     }
     
     func testDictionary() {
-        let json = JSON(["number":111111.23456789, "name":"Jack", "list":JSON([1,2,3,4]), "bool":false, "null":nil])
+        let json : JSON = ["number":111111.23456789, "name":"Jack", "list":[1,2,3,4], "bool":false, "null":NSNull()]
         let data: NSData?
         do {
             data = try json.rawData()
