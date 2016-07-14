@@ -48,7 +48,7 @@ class StringTests: XCTestCase {
         let urlString = "http://examble.com/unencoded" + emDash + "string"
         
         #if os(Linux)
-            let encodedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(CharacterSet.urlQueryAllowed)
+            let encodedURLString = urlString.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())
         #else
             let encodedURLString = urlString.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlQueryAllowed())
         #endif
