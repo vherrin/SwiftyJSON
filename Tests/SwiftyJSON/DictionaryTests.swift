@@ -27,8 +27,10 @@ import XCTest
 class DictionaryTests: XCTestCase {
 
     func testGetter() {
-        let dictionary = ["number":9823.212, "name":"NAME", "list":[1234, 4.212], "object":["sub_number":877.2323, "sub_name":"sub_name"], "bool":true]
-        let json = JSON(dictionary as AnyObject)
+        let subDictionary: [String: JSON.AnyType] = ["sub_number":877.2323, "sub_name":"sub_name"]
+        let dictionary: [String: JSON.AnyType] = ["number":9823.212, "name":"NAME", "list":[1234, 4.212], "object": subDictionary, "bool":true]
+        let json = JSON(dictionary as JSON.AnyType)
+
         //dictionary
         XCTAssertEqual((json.dictionary!["number"]! as JSON).double!, 9823.212)
         XCTAssertEqual((json.dictionary!["name"]! as JSON).string!, "NAME")
