@@ -90,7 +90,7 @@ class SequenceTypeTests: XCTestCase {
     }
     
     func testArrayAllString() {
-        var json:JSON = JSON(rawValue: ["aoo","bpp","zoo"] as NSArray)!
+        var json:JSON = JSON(rawValue: ["aoo","bpp","zoo"])!
         XCTAssertEqual(json.count, 3)
         
         var index = 0
@@ -107,7 +107,11 @@ class SequenceTypeTests: XCTestCase {
     }
     
     func testArrayWithNull() {
-        var json:JSON = JSON(rawValue: ["aoo","bpp", NSNull() ,"zoo"] as NSArray)!
+        #if os(Linux)
+        var json:JSON = JSON(rawValue: ["aoo","bpp", nil ,"zoo"])!
+        #else
+        var json:JSON = JSON(rawValue: ["aoo","bpp", NSNull() ,"zoo"])!
+        #endif
         XCTAssertEqual(json.count, 4)
         
         var index = 0
@@ -184,7 +188,7 @@ class SequenceTypeTests: XCTestCase {
     }
     
     func testDictionaryAllString() {
-        var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","z":"zoo"] as NSDictionary)!
+        var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","z":"zoo"])!
         XCTAssertEqual(json.count, 3)
         
         var index = 0
@@ -201,7 +205,11 @@ class SequenceTypeTests: XCTestCase {
     }
     
     func testDictionaryWithNull() {
-        var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","null":NSNull(), "z":"zoo"] as NSDictionary)!
+        #if os(Linux)
+        var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","null":nil, "z":"zoo"])!
+        #else
+        var json:JSON = JSON(rawValue: ["a":"aoo","bb":"bpp","null":NSNull(), "z":"zoo"])!
+        #endif
         XCTAssertEqual(json.count, 4)
         
         var index = 0

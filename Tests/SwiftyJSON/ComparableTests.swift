@@ -325,7 +325,7 @@ class ComparableTests: XCTestCase {
     }
     
     func testDictionary() {
-        let list: [JSON.AnyType?] = ["a", 1.09, nil]
+        let list: [JSON.AnyType] = ["a", 1.09, NSNull()]
 
         let jsonL1:JSON = ["2": 2, "name": "Jack", "List": list]
         let jsonR1:JSON = JSON(["2": 2, "name": "Jack", "List": list] as [String: JSON.AnyType])
