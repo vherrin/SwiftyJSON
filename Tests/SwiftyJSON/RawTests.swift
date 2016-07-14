@@ -27,6 +27,21 @@ import Foundation
 
 class RawTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (RawTests) -> () throws -> Void)] {
+        return [
+            ("testRawData", testRawData),
+            ("testInvalidJSONForRawData", testInvalidJSONForRawData),
+            ("testArray", testArray),
+            ("testDictionary", testDictionary),
+            ("testString", testString),
+            ("testNumber", testNumber),
+            ("testBool", testBool),
+            ("testNull", testNull),
+        ]
+    }
+// END OF GENERATED CODE
+
     func testRawData() {
         let json : JSON = ["somekey" : "some string value"]
         let expectedRawData = "{\"somekey\":\"some string value\"}".data(using: NSUTF8StringEncoding)

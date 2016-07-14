@@ -27,6 +27,19 @@ import Foundation
 
 class LiteralConvertibleTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (LiteralConvertibleTests) -> () throws -> Void)] {
+        return [
+            ("testNumber", testNumber),
+            ("testBool", testBool),
+            ("testString", testString),
+            ("testNil", testNil),
+            ("testArray", testArray),
+            ("testDictionary", testDictionary),
+        ]
+    }
+// END OF GENERATED CODE
+
     func testNumber() {
         var json:JSON = 1234567890.876623
         XCTAssertEqual(json.int!, 1234567890)

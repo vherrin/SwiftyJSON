@@ -26,6 +26,19 @@ import Foundation
 @testable import SwiftyJSON
 
 class PrintableTests: XCTestCase {
+
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (PrintableTests) -> () throws -> Void)] {
+        return [
+            ("testNumber", testNumber),
+            ("testBool", testBool),
+            ("testString", testString),
+            ("testNil", testNil),
+            ("testArray", testArray),
+            ("testDictionary", testDictionary),
+        ]
+    }
+// END OF GENERATED CODE
     func testNumber() {
         let json:JSON = 1234567890.876623
         XCTAssertEqual(json.description, "1234567890.876623")

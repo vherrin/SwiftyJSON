@@ -27,6 +27,25 @@ import Foundation
 
 class BaseTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (BaseTests) -> () throws -> Void)] {
+        return [
+            ("testInit", testInit),
+            ("testCompare", testCompare),
+            ("testJSONDoesProduceValidWithCorrectKeyPath", testJSONDoesProduceValidWithCorrectKeyPath),
+            ("testSequenceType", testSequenceType),
+            ("testJSONNumberCompare", testJSONNumberCompare),
+            ("testNumberConvertToString", testNumberConvertToString),
+            ("testNumberPrint", testNumberPrint),
+            ("testNullJSON", testNullJSON),
+            ("testExistance", testExistance),
+            ("testErrorHandle", testErrorHandle),
+            ("testReturnObject", testReturnObject),
+            ("testNumberCompare", testNumberCompare),
+        ]
+    }
+// END OF GENERATED CODE
+
     var testData: NSData!
 
     override func setUp() {

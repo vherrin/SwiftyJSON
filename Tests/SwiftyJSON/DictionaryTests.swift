@@ -26,6 +26,15 @@ import XCTest
 
 class DictionaryTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (DictionaryTests) -> () throws -> Void)] {
+        return [
+            ("testGetter", testGetter),
+            ("testSetter", testSetter),
+        ]
+    }
+// END OF GENERATED CODE
+
     func testGetter() {
         let subDictionary: [String: JSON.AnyType] = ["sub_number":877.2323, "sub_name":"sub_name"]
         let dictionary: [String: JSON.AnyType] = ["number":9823.212, "name":"NAME", "list":[1234, 4.212], "object": subDictionary, "bool":true]

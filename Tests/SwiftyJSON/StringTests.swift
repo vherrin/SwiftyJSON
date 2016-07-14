@@ -27,6 +27,16 @@ import Foundation
 
 class StringTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (StringTests) -> () throws -> Void)] {
+        return [
+            ("testString", testString),
+            ("testURL", testURL),
+            ("testURLPercentEscapes", testURLPercentEscapes),
+        ]
+    }
+// END OF GENERATED CODE
+
     func testString() {
         //getter
         var json = JSON("abcdefg hijklmn;opqrst.?+_()")

@@ -27,6 +27,24 @@ import Foundation
 @testable import SwiftyJSON
 
 class SequenceTypeTests: XCTestCase {
+
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (SequenceTypeTests) -> () throws -> Void)] {
+        return [
+            ("testJSONFile", testJSONFile),
+            ("testArrayAllNumber", testArrayAllNumber),
+            ("testArrayAllBool", testArrayAllBool),
+            ("testArrayAllString", testArrayAllString),
+            ("testArrayWithNull", testArrayWithNull),
+            ("testArrayAllDictionary", testArrayAllDictionary),
+            ("testDictionaryAllNumber", testDictionaryAllNumber),
+            ("testDictionaryAllBool", testDictionaryAllBool),
+            ("testDictionaryAllString", testDictionaryAllString),
+            ("testDictionaryWithNull", testDictionaryWithNull),
+            ("testDictionaryAllArray", testDictionaryAllArray),
+        ]
+    }
+// END OF GENERATED CODE
     func testJSONFile() {
         if let file = NSBundle.pathForResource("Tests", ofType: "json", inDirectory: "Tests/SwiftyJSON") {
             let testData = NSData(contentsOfFile: file)

@@ -27,7 +27,7 @@ XCTMain([
     testCase(NumberTests.allTests),
     testCase(PerformanceTests.allTests),
     testCase(PrintableTests.allTests),
-    testCase(RawPresentableTests.allTests),
+    testCase(RawRepresentableTests.allTests),
     testCase(RawTests.allTests),
     testCase(SequenceTypeTests.allTests),
     testCase(StringTests.allTests),

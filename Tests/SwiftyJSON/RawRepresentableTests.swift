@@ -27,6 +27,17 @@ import Foundation
 
 class RawRepresentableTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (RawRepresentableTests) -> () throws -> Void)] {
+        return [
+            ("testNumber", testNumber),
+            ("testBool", testBool),
+            ("testString", testString),
+            ("testNil", testNil),
+        ]
+    }
+// END OF GENERATED CODE
+
     func testNumber() {
         var json:JSON = JSON(rawValue: 948394394.347384 as NSNumber)!
         XCTAssertEqual(json.int!, 948394394)

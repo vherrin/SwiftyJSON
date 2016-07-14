@@ -35,6 +35,18 @@ func autoreleasepool(callback:() -> ()) {
 
 class PerformanceTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (PerformanceTests) -> () throws -> Void)] {
+        return [
+            ("testInitPerformance", testInitPerformance),
+            ("testObjectMethodPerformance", testObjectMethodPerformance),
+            ("testArrayMethodPerformance", testArrayMethodPerformance),
+            ("testDictionaryMethodPerformance", testDictionaryMethodPerformance),
+            ("testRawStringMethodPerformance", testRawStringMethodPerformance),
+        ]
+    }
+// END OF GENERATED CODE
+
     var testData: NSData!
 
     override func setUp() {

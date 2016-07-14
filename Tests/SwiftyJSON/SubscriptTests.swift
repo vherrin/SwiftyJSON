@@ -27,6 +27,29 @@ import Foundation
 
 class SubscriptTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (SubscriptTests) -> () throws -> Void)] {
+        return [
+            ("testArrayAllNumber", testArrayAllNumber),
+            ("testArrayAllBool", testArrayAllBool),
+            ("testArrayAllString", testArrayAllString),
+            ("testArrayWithNull", testArrayWithNull),
+            ("testArrayAllDictionary", testArrayAllDictionary),
+            ("testDictionaryAllNumber", testDictionaryAllNumber),
+            ("testDictionaryAllBool", testDictionaryAllBool),
+            ("testDictionaryAllString", testDictionaryAllString),
+            ("testDictionaryWithNull", testDictionaryWithNull),
+            ("testDictionaryAllArray", testDictionaryAllArray),
+            ("testOutOfBounds", testOutOfBounds),
+            ("testErrorWrongType", testErrorWrongType),
+            ("testErrorNotExist", testErrorNotExist),
+            ("testMultilevelGetter", testMultilevelGetter),
+            ("testMultilevelSetter1", testMultilevelSetter1),
+            ("testMultilevelSetter2", testMultilevelSetter2),
+        ]
+    }
+// END OF GENERATED CODE
+
     func testArrayAllNumber() {
         var json:JSON = [1,2.0,3.3,123456789,987654321.123456789]
         XCTAssertTrue(json == [1,2.0,3.3,123456789,987654321.123456789])

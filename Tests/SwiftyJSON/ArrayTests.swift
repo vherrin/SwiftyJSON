@@ -25,6 +25,15 @@ import XCTest
 
 class ArrayTests: XCTestCase {
 
+// GENERATED: allTests required for Swift 3.0
+    static var allTests : [(String, (ArrayTests) -> () throws -> Void)] {
+        return [
+            ("testSingleDimensionalArraysGetter", testSingleDimensionalArraysGetter),
+            ("testSingleDimensionalArraysSetter", testSingleDimensionalArraysSetter),
+        ]
+    }
+// END OF GENERATED CODE
+
     func testSingleDimensionalArraysGetter() {
         let array = ["1","2", "a", "B", "D"]
         let json = JSON(array as JSON.AnyType)
