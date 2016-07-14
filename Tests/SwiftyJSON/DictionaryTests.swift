@@ -51,8 +51,24 @@ class DictionaryTests: XCTestCase {
     
     func testSetter() {
         var json:JSON = ["test":"case"]
-        XCTAssertEqual(json.dictionaryObject! as! [String : String], ["test":"case"])
+        XCTAssertEqual(convert(json.dictionaryObject), ["test":"case"])
         json.dictionaryObject = ["name":"NAME"]
-        XCTAssertEqual(json.dictionaryObject! as! [String : String], ["name":"NAME"])
+        XCTAssertEqual(convert(json.dictionaryObject), ["name":"NAME"])
+    }
+
+    private func convert(_ dictionary: [String: JSON.AnyType]?) -> [String: String] {
+        var dictionaryToReturn = [String: String]()
+
+        guard let dictionary = dictionary else {
+            return dictionaryToReturn
+        }
+
+        for (key, value) in dictionary {
+            if let stringValue = value as? String {
+                dictionaryToReturn[key] = stringValue
+            }
+        }
+
+        return dictionaryToReturn
     }
 }
