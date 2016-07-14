@@ -94,6 +94,9 @@ class RawRepresentableTests: XCTestCase {
         }
     }
 
+    #if !os(Linux)
+        // the following tests are not relevant to Linux
+        // you cannot convert array/dictionary of value types to NSArray/NSDictionary
     func testArray() {
         let array = [1,2,"3",4102,"5632", "abocde", "!@# $%^&*()"] as NSArray
         if let json:JSON = JSON(rawValue: array) {
@@ -113,4 +116,5 @@ class RawRepresentableTests: XCTestCase {
         let object: AnyObject = JSON(rawValue: dictionary)!.rawValue
         XCTAssertTrue(dictionary == object as! NSDictionary)
     }
+    #endif
 }
